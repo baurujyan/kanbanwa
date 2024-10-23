@@ -67,12 +67,16 @@ function deleteBoard(index) {
     showDeleteModal(index);
 }
 
-function openBoard(index) {
+async function openBoard(index) {
+    showLoading();
     currentBoard = boards[index];
     if (!currentBoard.lists) {
         currentBoard.lists = [];
     }
+    // Simulate loading time
+    await new Promise(resolve => setTimeout(resolve, 500));
     renderBoardView();
+    hideLoading();
 }
 
 function renderBoardView() {
@@ -451,16 +455,23 @@ function closeModal(modal) {
 }
 
 // Add these new functions for sidebar functionality
-function showBoards() {
+async function showBoards() {
+    showLoading();
     document.querySelector('.main-content').style.display = 'block';
+    // Simulate loading time
+    await new Promise(resolve => setTimeout(resolve, 500));
     if (currentBoard) {
         renderBoardView();
     } else {
         renderMainView();
     }
+    hideLoading();
 }
 
-function showSettings() {
+async function showSettings() {
+    showLoading();
+    // Simulate loading time
+    await new Promise(resolve => setTimeout(resolve, 500));
     const mainContent = document.querySelector('.main-content');
     mainContent.innerHTML = `
         <header>
@@ -508,6 +519,7 @@ function showSettings() {
             </div>
         </div>
     `;
+    hideLoading();
 }
 
 function changeTheme(theme) {
@@ -517,9 +529,13 @@ function changeTheme(theme) {
     localStorage.setItem('theme', theme);
 }
 
-function logout() {
-    alert('Logout functionality not implemented yet');
-    // Implement logout functionality
+// Update the logout function
+async function logout() {
+    showLoading();
+    await new Promise(resolve => setTimeout(resolve, 800)); // Increased delay for better visibility
+    document.querySelector('.main-content').style.display = 'none'; // Hide main content
+    document.getElementById('loginScreen').style.display = 'block';
+    hideLoading();
 }
 
 function toggleSidebar() {
@@ -915,6 +931,46 @@ document.addEventListener('DOMContentLoaded', () => {
     const savedTheme = localStorage.getItem('theme') || 'dark';
     currentTheme = savedTheme;
     document.documentElement.setAttribute('data-theme', savedTheme);
+
+    // Show login screen by default
+    document.getElementById('loginScreen').style.display = 'block';
+
+    // Add demo login handler
+    document.querySelector('.demo-login').addEventListener('click', async function() {
+        showLoading();
+        await new Promise(resolve => setTimeout(resolve, 800)); // Simulate loading
+        document.getElementById('loginScreen').style.display = 'none';
+        hideLoading();
+    });
+
+    // Add login form handler
+    document.querySelector('.login-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        showLoading();
+        await new Promise(resolve => setTimeout(resolve, 500)); // Simulate loading
+        alert('Login functionality not implemented yet');
+        hideLoading();
+    });
+
+    // Add Google login handler
+    document.querySelector('.google-login').addEventListener('click', async function() {
+        showLoading();
+        await new Promise(resolve => setTimeout(resolve, 500)); // Simulate loading
+        alert('Google login not implemented yet');
+        hideLoading();
+    });
+
+    // Add theme toggle button only to login screen
+    const themeToggleBtn = document.createElement('button');
+    themeToggleBtn.className = 'theme-toggle';
+    themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
+    document.getElementById('loginScreen').appendChild(themeToggleBtn);
+
+    themeToggleBtn.addEventListener('click', () => {
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        changeTheme(newTheme);
+        themeToggleBtn.innerHTML = `<i class="fas fa-${newTheme === 'dark' ? 'moon' : 'sun'}"></i>`;
+    });
 });
 
 function showDeleteModal(index) {
@@ -994,7 +1050,10 @@ function saveTaskEdit(listIndex, taskIndex, input) {
 }
 
 // Update the openTaskDetails function to show task metadata
-function openTaskDetails(listIndex, taskIndex) {
+async function openTaskDetails(listIndex, taskIndex) {
+    showLoading();
+    // Simulate loading time
+    await new Promise(resolve => setTimeout(resolve, 300));
     const modal = document.getElementById('taskDetailsModal');
     const taskTitle = document.getElementById('taskTitle');
     const listName = document.getElementById('listName');
@@ -1053,5 +1112,28 @@ function openTaskDetails(listIndex, taskIndex) {
     modal.addEventListener('close', () => {
         document.removeEventListener('keydown', handleKeyPress);
     });
+    hideLoading();
 }
 
+// Add these utility functions at the top of the file
+function showLoading() {
+    document.getElementById('loading-overlay').style.display = 'flex';
+}
+
+function hideLoading() {
+    document.getElementById('loading-overlay').style.display = 'none';
+}
+
+// Update the deleteBoard function
+async function deleteBoard(index) {
+    showLoading();
+    // Simulate loading time
+    await new Promise(resolve => setTimeout(resolve, 500));
+    showDeleteModal(index);
+    hideLoading();
+}
+
+// Update the logout function to show login screen
+function logout() {
+    document.getElementById('loginScreen').style.display = 'block';
+}

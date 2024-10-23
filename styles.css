@@ -637,6 +637,10 @@ header button {
     color: var(--text-color);
 }
 
+[data-theme="light"] .theme-toggle i {
+    color: var(--text-color);
+}
+
 [data-theme="light"] .back-button i {
     color: var(--text-color);
 }
@@ -887,3 +891,206 @@ header button {
 .github-link a:hover {
     color: var(--accent-hover);
 }
+
+/* Loading animation styles */
+.loading-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 4000; /* Increased from 2000 to be above login screen (3000) */
+    justify-content: center;
+    align-items: center;
+}
+
+.loader {
+    width: 50px;
+    height: 50px;
+    border: 5px solid var(--board-bg);
+    border-top: 5px solid var(--accent-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Update modal styles to cover sidebar */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Add these styles for the login screen */
+.login-screen {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-color);
+    z-index: 3000;
+}
+
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.login-methods {
+    margin-top: 30px;
+}
+
+.google-login {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--text-color);
+    color: var(--bg-color) !important;
+    border: 1px solid var(--board-hover);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.google-login i {
+    font-size: 18px;
+    color: #4285f4;
+}
+
+.divider {
+    position: relative;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 45%;
+    height: 1px;
+    background-color: var(--text-color);
+    opacity: 0.3;
+}
+
+.divider::before {
+    left: 0;
+}
+
+.divider::after {
+    right: 0;
+}
+
+.divider span {
+    background-color: var(--bg-color);
+    padding: 0 10px;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.login-form input {
+    padding: 12px;
+    border: 1px solid var(--board-hover);
+    border-radius: 4px;
+    background-color: var(--board-bg);
+    color: var(--text-color);
+}
+
+.login-form button {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.login-links {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.login-links a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+.login-footer {
+    margin-top: 50px;
+    color: var(--text-color);
+    opacity: 0.7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.login-footer a {
+    color: var(--accent-color);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Add demo login button styles */
+.demo-login {
+    margin-top: 10px;
+    background-color: var(--board-hover);
+    color: #ffffff;
+}
+
+/* Update theme toggle button styles */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 3001;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+}
+
+/* Add these new styles for light mode */
+[data-theme="light"] .theme-toggle {
+    background-color: var(--board-bg);
+    box-shadow: 0 2px 8px var(--item-shadow);
+}
+
+.theme-toggle:hover {
+    background-color: var(--board-hover);
+}
+

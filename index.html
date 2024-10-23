@@ -10,6 +10,10 @@
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 </head>
 <body>
+    <!-- Add this right after the body tag opens -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loader"></div>
+    </div>
     <div class="container">
         <aside class="sidebar">
             <div class="profile">
@@ -73,6 +77,39 @@
                 </div>
             </div>
             <button id="closeTaskDetails" class="close-button">Close</button>
+        </div>
+    </div>
+    <!-- Add this right before the closing body tag -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-container">
+            <h1>Welcome to Kanban Board</h1>
+            <div class="login-methods">
+                <button class="google-login">
+                    <i class="fab fa-google"></i>
+                    Continue with Google
+                </button>
+                <div class="divider">
+                    <span>or</span>
+                </div>
+                <form class="login-form">
+                    <input type="email" placeholder="Email" required>
+                    <input type="password" placeholder="Password" required>
+                    <button type="submit">Sign In</button>
+                    <button type="button" class="demo-login">Sign in as Test Demo</button>
+                </form>
+                <div class="login-links">
+                    <a href="#" class="forgot-password">Forgot Password?</a>
+                    <a href="#" class="signup-link">Don't have an account? Sign Up</a>
+                </div>
+            </div>
+            <footer class="login-footer">
+                <p>Created by Bauirjan Jaksimuratov</p>
+                <a href="https://github.com/baurujyan" target="_blank">
+                    <i class="fab fa-github"></i>
+                    github.com/baurujyan
+                </a>
+                <p>© 2024</p>
+            </footer>
         </div>
     </div>
     <script src="script.js"></script>
