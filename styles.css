@@ -1,0 +1,868 @@
+/* Theme Variables */
+:root {
+    /* Common variables */
+    --transition-speed: 0.3s;
+    --sidebar-width: 250px;
+    --sidebar-collapsed-width: 60px;
+    --sidebar-padding: 20px 20px 0 20px;
+    --header-height: 80px;
+}
+
+/* Dark theme (default) */
+[data-theme="dark"] {
+    --bg-color: #1e1e1e;
+    --text-color: #ffffff;
+    --board-bg: #2d2d2d;
+    --board-hover: #3a3a3a;
+    --accent-color: #007acc;
+    --accent-hover: #005999;
+    --danger-color: #d32f2f;
+    --danger-hover: #b71c1c;
+    --sidebar-bg: #252526;
+    --task-bg: #1e1e1e;
+    --dropdown-shadow: rgba(0, 0, 0, 0.2);
+    --button-text: #ffffff;  /* Add this for button text color */
+    --item-shadow: rgba(0, 0, 0, 0.2);  /* Add this for shadows */
+}
+
+/* Light theme */
+[data-theme="light"] {
+    --bg-color: #e9ecef;  /* Slightly darker background */
+    --text-color: #172b4d;
+    --board-bg: #ffffff;
+    --board-hover: #f4f5f7;
+    --accent-color: #0052cc;
+    --accent-hover: #0747a6;
+    --danger-color: #ff5630;
+    --danger-hover: #de350b;
+    --sidebar-bg: #ffffff;
+    --task-bg: #f4f5f7;
+    --dropdown-shadow: rgba(9, 30, 66, 0.13);
+    --button-text: #ffffff;  /* Add this for button text color */
+    --item-shadow: rgba(9, 30, 66, 0.1);  /* Add this for shadows */
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: var(--sidebar-bg);
+    padding: var(--sidebar-padding);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: width var(--transition-speed) ease, padding var(--transition-speed) ease;
+    position: fixed;
+    top: 0;
+    left: 0;
+    flex-shrink: 0;
+    height: calc(100vh - 20px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 1000; /* Add this to keep sidebar on top */
+}
+
+.profile {
+    text-align: center;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-icon {
+    font-size: 80px;
+    color: var(--accent-color);
+    margin-bottom: 15px;
+}
+
+/* Remove or comment out the following styles as they're no longer needed */
+/*
+.profile-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+*/
+
+.account-name {
+    font-size: 1.2em;
+    font-weight: 400;
+}
+
+.nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 90%;
+    text-align: left;
+    padding: 10px 5%;
+    margin-bottom: 10px;
+    background-color: transparent;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Add specific text colors for each theme */
+[data-theme="dark"] .nav-btn {
+    color: var(--text-color);
+}
+
+[data-theme="light"] .nav-btn {
+    color: var(--text-color) !important;
+    background-color: transparent !important; /* Override any other background */
+}
+
+[data-theme="light"] .nav-btn i {
+    color: var(--text-color);
+}
+
+.nav-btn:hover, .nav-btn.active {
+    background-color: var(--board-hover);
+}
+
+.nav-btn i {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.sidebar.collapsed .nav-btn {
+    justify-content: center;
+    padding: 10px 0;
+    width: 100%;
+}
+
+.sidebar.collapsed .nav-btn span {
+    display: none;
+}
+
+.sidebar.collapsed .nav-btn i {
+    margin-right: 0;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 20px 20px 0 20px;
+    transition: margin-left var(--transition-speed) ease;
+    width: calc(100% - var(--sidebar-width));
+    margin-left: calc(var(--sidebar-width) + 40px); /* Add this to offset the main content */
+    min-height: 50vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.main-content.sidebar-collapsed {
+    width: calc(100% - var(--sidebar-collapsed-width));
+    margin-left: var(--sidebar-collapsed-width); /* Update margin for collapsed state */
+}
+
+header {
+    margin-bottom: 30px;
+    height: var(--header-height);
+}
+
+h1 {
+    font-weight: 300;
+    font-size: 2.5em;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: var(--accent-color);
+    color: var(--button-text) !important; /* Force white text on buttons */
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: background-color 0.3s;
+    box-shadow: 0 2px 4px var(--item-shadow);
+}
+
+button:hover {
+    background-color: var(--accent-hover);
+}
+
+#boardsList {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 30px;
+}
+
+.board-item {
+    background-color: var(--board-bg);
+    margin-bottom: 15px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px var(--item-shadow);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.board-item:hover {
+    background-color: var(--board-hover);
+    transform: translateY(-2px);
+}
+
+.board-item span {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.board-item .more-options {
+    position: relative;
+}
+
+.board-item .more-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: var(--text-color);
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+
+.board-item .more-btn:hover {
+    opacity: 1;
+}
+
+.board-item .dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: var(--board-bg);
+    min-width: 140px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.board-item .dropdown-content a {
+    color: var(--text-color);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.board-item .dropdown-content a:hover {
+    background-color: var(--board-hover);
+}
+
+.board-item .show {
+    display: block;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: var(--board-bg);
+    margin: 15% auto;
+    padding: 30px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#boardNameInput {
+    width: 100%;
+    padding: 10px;
+    margin: 20px 0;
+    box-sizing: border-box;
+    background-color: var(--bg-color);
+    border: 1px solid var(--accent-color);
+    color: var(--text-color);
+    border-radius: 4px;
+}
+
+#createBoardBtn {
+    display: block;
+    margin: 0 auto;
+    font-size: 16px;
+    padding: 12px 24px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.modal-buttons button {
+    width: 48%;
+}
+
+#cancelBtn {
+    background-color: var(--danger-color);
+}
+
+#cancelBtn:hover {
+    background-color: var(--danger-hover);
+}
+
+.sidebar.collapsed {
+    width: var(--sidebar-collapsed-width);
+    padding: 20px 0 0 0;
+}
+
+.sidebar.collapsed .profile-icon {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.sidebar.collapsed .account-name,
+.sidebar.collapsed nav {
+    display: none;
+}
+
+.toggle-sidebar {
+    position: absolute; /* Changed from fixed to absolute */
+    bottom: 20px;
+    left: 50%; /* Center relative to sidebar */
+    transform: translateX(-50%);
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all var(--transition-speed);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.sidebar.collapsed .toggle-sidebar {
+    left: 50%; /* Keep it centered when sidebar is collapsed */
+    transform: translateX(-50%);
+}
+
+nav {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.board-content {
+    background-color: transparent;
+    padding: 20px;
+    border-radius: 8px;
+    min-height: calc(100vh - var(--header-height) - 90px);
+    overflow-y: auto;
+}
+
+header button {
+    margin-left: 20px;
+}
+
+/* Add these styles at the end of your existing CSS file */
+
+#deleteModal .modal-content {
+    max-width: 400px;
+}
+
+#deleteModal p {
+    margin-bottom: 20px;
+}
+
+#confirmDeleteBtn {
+    background-color: var(--danger-color);
+}
+
+#confirmDeleteBtn:hover {
+    background-color: var(--danger-hover);
+}
+
+.editable-title {
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    display: inline-block;
+}
+
+.editable-title:hover {
+    background-color: var(--board-hover);
+}
+
+.edit-title-input {
+    font-size: inherit;
+    font-weight: inherit;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: none;
+    border-bottom: 2px solid var(--accent-color);
+    padding: 5px;
+    width: 100%;
+    outline: none;
+    margin: -5px;
+}
+
+.lists-container {
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 20px;
+    align-items: flex-start;
+    gap: 20px;
+    height: 100%; /* Take full height of board-content */
+}
+
+.list {
+    background-color: var(--board-bg);
+    border-radius: 8px;
+    width: 300px;
+    margin-right: 20px;
+    margin-bottom: 20px; /* Add this line */
+    padding: 15px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px var(--item-shadow);
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    max-height: none;
+}
+
+.tasks-container {
+    min-height: 2px;
+    transition: min-height 0.3s ease;
+    overflow-y: visible;
+    max-height: none;
+}
+
+.tasks-container.empty {
+    min-height: 2px;
+    padding: 0;
+}
+
+.tasks-container-empty {
+    min-height: auto;
+    background-color: var(--board-hover);
+    border-radius: 4px;
+    border: 2px dashed var(--accent-color);
+    opacity: 0.6;
+    margin: 10px 0;
+}
+
+.add-task-wrapper {
+    margin-top: auto; /* Push button to bottom when list is empty */
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.list-title {
+    margin: 0;
+    flex-grow: 1;
+}
+
+.task {
+    background-color: var(--bg-color);
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 4px var(--item-shadow);
+}
+
+.task-title {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.more-options {
+    position: relative;
+}
+
+.more-btn {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: var(--text-color);
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: var(--board-bg);
+    min-width: 120px;
+    box-shadow: 0 4px 12px var(--item-shadow);
+    z-index: 1000; /* Keep high z-index only for dropdown content */
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.dropdown-content a {
+    color: var(--text-color);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--board-hover);
+}
+
+.show {
+    display: block;
+}
+
+.create-list-btn {
+    background-color: var(--board-bg);
+    border-radius: 8px;
+    min-width: 300px; /* Change width to min-width */
+    width: 300px; /* Add fixed width */
+    flex-shrink: 0; /* Prevent shrinking */
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px var(--item-shadow);
+}
+
+.create-list-btn:hover {
+    background-color: var(--board-hover);
+}
+
+.edit-title-input {
+    font-size: inherit;
+    font-weight: inherit;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: none;
+    border-bottom: 2px solid var(--accent-color);
+    padding: 5px;
+    width: calc(100% - 10px);
+    outline: none;
+    margin: -5px;
+}
+
+/* Add these new styles for the settings page */
+.settings-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.settings-section {
+    background-color: var(--board-bg);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px var(--item-shadow);
+}
+
+.settings-section h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.setting-item label {
+    font-weight: 500;
+}
+
+.setting-item select {
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid var(--board-hover);
+    background-color: var(--board-bg);
+    color: var(--text-color);
+    cursor: pointer;
+    min-width: 150px;
+}
+
+.setting-item select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+/* Add specific colors for light theme icons and buttons */
+[data-theme="light"] .more-btn i {
+    color: var(--text-color);
+}
+
+[data-theme="light"] .back-button i {
+    color: var(--text-color);
+}
+
+[data-theme="light"] .nav-btn {
+    color: var(--text-color) !important;
+    background-color: transparent !important;
+}
+
+[data-theme="light"] .nav-btn i {
+    color: var(--text-color);
+}
+
+[data-theme="light"] .more-options .more-btn {
+    color: var(--text-color);
+}
+
+/* Add styles for drag and drop */
+.sortable-lists {
+    display: flex;
+    gap: 20px;
+    min-height: 100vh;
+}
+
+.list-ghost {
+    opacity: 0.5;
+    background: var(--board-hover);
+}
+
+.task-ghost {
+    opacity: 0.5;
+    background: var(--board-hover);
+}
+
+.list.dragging {
+    cursor: grabbing;
+}
+
+.task.dragging {
+    cursor: grabbing;
+}
+
+.list-header {
+    cursor: grab;
+}
+
+/* Update the lists container style */
+.lists-container {
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 20px;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.add-task-button.task {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    background-color: var(--board-bg);
+    border-radius: 4px;
+}
+
+.add-task-button.task:hover {
+    background-color: var(--board-hover);
+}
+
+.add-task-button.task span {
+    color: var(--text-color);
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+}
+
+/* Add these styles for the task details modal */
+.modal-content.task-details {
+    width: 600px;
+    max-width: 90%;
+    padding: 30px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: fixed; /* Add this */
+    top: 50%; /* Add this */
+    left: 50%; /* Add this */
+    transform: translate(-50%, -50%); /* Add this */
+    margin: 0; /* Reset margin */
+}
+
+.task-details-header {
+    border-bottom: 1px solid var(--board-hover);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.task-location {
+    color: var(--text-color);
+    opacity: 0.7;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.task-details-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.created-date {
+    font-size: 14px;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+.task-description, .task-comments {
+    background-color: var(--bg-color);
+    padding: 15px;
+    border-radius: 4px;
+}
+
+.close-button {
+    margin-top: 20px;
+}
+
+/* Add these styles for the About section */
+.about-content {
+    padding: 10px 0;
+}
+
+.about-content h3 {
+    margin: 0 0 10px 0;
+    color: var(--accent-color);
+}
+
+.about-content .version {
+    font-size: 14px;
+    color: var(--text-color);
+    opacity: 0.7;
+    margin-bottom: 15px;
+}
+
+.about-content .description {
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.about-details {
+    margin-bottom: 20px;
+}
+
+.about-details p {
+    margin: 5px 0;
+}
+
+.tech-stack ul {
+    list-style: none;
+    padding: 0;
+    margin: 5px 0;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.tech-stack li {
+    background-color: var(--bg-color);
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Add these styles for centering titles */
+.main-content header {
+    margin-bottom: 30px;
+    height: var(--header-height);
+    text-align: center; /* Add this */
+}
+
+.settings-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.settings-container header {
+    text-align: center; /* Add this */
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    text-align: center; /* Add this */
+}
+
+.list-title {
+    margin: 0;
+    flex-grow: 1;
+    text-align: center; /* Add this */
+}
+
+.board-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+}
+
+.back-button {
+    position: absolute;
+    left: 0;
+    background: none;
+    border: none;
+    font-size: 20px;
+    padding: 10px;
+    box-shadow: none;
+    color: var(--text-color);
+}
+
+.back-button:hover {
+    background-color: var(--board-hover);
+    color: var(--text-color);
+}
+
+.board-header h1 {
+    margin: 0;
+}
