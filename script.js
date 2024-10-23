@@ -481,14 +481,18 @@ function showSettings() {
                 <h2>About</h2>
                 <div class="about-content">
                     <h3>Kanban Board Application</h3>
-                    <p class="version">Version 1.0.0</p>
+                    <p class="version">Version 0.7.6</p>
                     <p class="description">
                         A modern task management application with drag-and-drop functionality, 
                         dark/light themes, and intuitive board organization.
                     </p>
                     <div class="about-details">
-                        <p><strong>Created by:</strong> Your Name</p>
-                        <p><strong>Created on:</strong> April 2023</p>
+                        <p><strong>Created by:</strong> Bauirjan Jaksimuratov</p>
+                        <p class="github-link">
+                            <i class="fab fa-github"></i>
+                            <a href="https://github.com/baurujyan" target="_blank">github.com/baurujyan</a>
+                        </p>
+                        <p><strong>Created on:</strong> October 2024</p>
                         <p><strong>Last Updated:</strong> ${new Date().toLocaleDateString()}</p>
                     </div>
                     <div class="tech-stack">
