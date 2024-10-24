@@ -1,4 +1,6 @@
 # Kanban Board Application
+You can check out the live version of the application [here](https://kanbanwa.vercel.app/).
+
 
 ## Current Implementation
 
